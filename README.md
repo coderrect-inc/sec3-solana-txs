@@ -35,14 +35,6 @@ PublicKeys and BigInts are stored as strings.
 Before you begin the download process, please ensure you meet the following
 requirements:
 
-- Authorization Token
-
-The download is FREE, however, you need an access authorization token to access
-the data. If you don't already have one, please visit
-[here](https://forms.gle/8psmoiJ2MGMCRVaw7) to apply for a free token. Note
-that each token is valid for 48 hours. After expiration, you will need to
-reapply.
-
 - Storage Requirements
 
 The data is packaged in ZIP files, with each file containing ~1000 slots of
@@ -71,14 +63,11 @@ Once you have identified the file name, locate the corresponding complete URL
 
 - Downloading
 
-To download the file, use the provided authorization token in the request
-header. Replace `<Token string>` with your token and `<Download URL>` with the
-URL of the file you wish to download. For example:
+To download the file, Fetch the URL directly. For example:
 
 ```sh
-AUTHORIZATION_TOKEN=<Token string>
 DOWNLOAD_URL=<Download URL>
-curl --remote-name --header "Authorization: ${AUTHORIZATION_TOKEN}" "${DOWNLOAD_URL}"
+curl --remote-name "${DOWNLOAD_URL}"
 ```
 
 #### Complete Dataset
@@ -102,7 +91,6 @@ Below are the example commands for using `aria2` and `curl` as references.
 
     ```sh
     aria2c \
-      --header="Authorization: ${AUTHORIZATION_TOKEN}" \
       --input-file=urls.txt \
       --max-concurrent-downloads=5 \
       --continue
@@ -115,7 +103,7 @@ Below are the example commands for using `aria2` and `curl` as references.
       xargs \
         --max-procs=5 \
         --max-args=1 \
-        curl --remote-name --header "Authorization: ${AUTHORIZATION_TOKEN}"
+        curl --remote-name
     ```
 
 ## Additional Resources
