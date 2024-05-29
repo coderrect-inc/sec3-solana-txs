@@ -7,6 +7,12 @@ Beta. This dataset offers access to non-voting transactions on the Solana
 mainnet for September 2023, and deciphers transactions. Transactions related to
 voting are excluded to conserve storage space.
 
+## Update (May 29, 2024):
+
+- Fixed the issue of incorrect inner instruction order in some transactions.
+- Stored each transaction as a file, facilitating the retrieval of individual transactions.
+- Marked `bigint` and `BigNumber` values for easier processing of numerical values.
+
 ## Data Range
 
 The data contains transactions from slot
@@ -16,8 +22,24 @@ The data contains transactions from slot
 
 ## Schema
 
+Each zip file contains the transactions in a group of approximately 1,000 slots.
+An example of a directory within a zip file is:
+```
+214824000
+├── 214824000
+│   ├── 2GPWc78mVoQTYCSY8Bu8SFLmSNpwJDXrWuxqHtXGBMCMUET47F4tuRLz2LSA6nrU6k5udyRMkBurEEbnShLYieW.json
+│   ├── 5csTNgtebRZJAYiP9tp5Tysno6FELEgAxeCidjeWWVxoQq54tjoS1bBA8Uh5QL4vwA9x7CPAGDHUKbx3FLNHwVu7.json
+│   └── ...
+├── 214824001
+│   ├── 54odvSJSeZ32Q7gMGooc9YMGrp47JQ3PCNeznq5oMQ3iusn6LrXcFhPo2Z7g2CNkDati4CDm2xD5YfT2ewSxDG5R.json
+│   └── ...
+├── 214824002
+│   └── ...
+└── ...
+```
+
 The structure of each file aligns with the output of Solana's official RPC
-`getBlock` method, with enhancements in instruction data parsing. If
+`getTransaction` method, with enhancements in instruction data parsing. If
 instruction data is parseable, it includes a `parsed` field with subfields:
 
 - `type`: Specifies the instruction name.
@@ -26,7 +48,11 @@ instruction data is parseable, it includes a `parsed` field with subfields:
 If the instruction data cannot be parsed, the original `data` field is
 retained, containing base58 encoded data.
 
-PublicKeys and BigInts are stored as strings.
+`PublicKey`s are stored as strings.
+
+`BigInt` and `BigNumber` values are stored as `{$bn: string}`.
+
+The index of the TX in each slots are denoted as `indexInSlot`.
 
 ## Download instructions
 
@@ -38,8 +64,8 @@ requirements:
 - Storage Requirements
 
 The data is packaged in ZIP files, with each file containing ~1000 slots of
-transactions and being ~150MB in size. If you intend to download the entire
-dataset for a 30-day period, the total file size will be approximately 900GB.
+transactions and being ~250MB in size. If you intend to download the entire
+dataset for a 30-day period, the total file size will be approximately 1,807 GB.
 Please ensure you have sufficient disk space available.
 
 ### Download
