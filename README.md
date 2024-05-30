@@ -7,7 +7,7 @@ Beta. This dataset offers access to non-voting transactions on the Solana
 mainnet for September 2023, and deciphers transactions. Transactions related to
 voting are excluded to conserve storage space.
 
-## Update (May 29, 2024):
+## Update (May 29, 2024)
 
 - Fixed the issue of incorrect inner instruction order in some transactions.
 - Stored each transaction as a file, facilitating the retrieval of individual transactions.
@@ -52,7 +52,7 @@ retained, containing base58 encoded data.
 
 `BigInt` and `BigNumber` values are stored as `{$bn: string}`.
 
-The index of the TX in each slots are denoted as `indexInSlot`.
+The index of the transactions in each slot is denoted as `indexInSlot`.
 
 ## Download instructions
 
@@ -65,7 +65,7 @@ requirements:
 
 The data is packaged in ZIP files, with each file containing ~1000 slots of
 transactions and being ~250MB in size. If you intend to download the entire
-dataset for a 30-day period, the total file size will be approximately 1,807 GB.
+dataset for a 30-day period, the total file size will be approximately 1,704 GB.
 Please ensure you have sufficient disk space available.
 
 ### Download
